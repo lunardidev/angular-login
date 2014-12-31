@@ -1,0 +1,75 @@
+.page-signin,
+.page-signup,
+.page-forgot {
+
+    // 
+    .signin-header {
+        padding: 25px 0;
+        background-color: #dfe0e6;
+    }
+
+    .logo {
+        font-size: 46px;
+        font-weight: bold;
+        a {
+            &:hover {
+                text-decoration: none;
+            }
+        }
+    }
+
+    // 
+    .main-body {
+        border-top: 1px solid lighten($body-bg, 2%);
+        padding: 20px 10px;
+    }
+
+    .info {
+        padding: 25px 0 0;
+        max-width: 420px;
+        margin: 0 auto 20px;
+
+        h2 {
+            font-size: 18px;
+            color: $dark;
+        }
+    }
+
+    .form-container {
+        max-width: 420px;
+        margin: 10px auto;
+    }
+
+    // Line through
+    .line-thru {
+        margin: 1em 0;
+        display: block;
+        font-size: .875em;
+        font-weight: bold;
+        margin-bottom: 1em;
+        position: relative;
+        text-align: center;
+        width: 100%;
+        z-index: 1;
+        &:before {
+            width: 50px;
+            height: 10px;
+            background-color: $body-bg; 
+            content: '';
+            margin: -5px 0 0 -20px;
+            left: 50%;
+            position: absolute;
+            top: 50%;
+            z-index: -1;
+        }
+        &:after {
+            width: 100%;
+            border-bottom: 1px solid darken($body-bg, 10%);
+            content: '';
+            display: block;
+            position: absolute;
+            top: 49%;
+            z-index: -2;
+        }
+    }
+}

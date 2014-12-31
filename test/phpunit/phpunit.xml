@@ -1,0 +1,31 @@
+<phpunit bootstrap="./vendor/autoload.php"
+		backupStaticAtttributes="false"
+		cacheTokens="true"
+		colors="true"
+        debug="true"
+		convertErrosToExceptions="true"
+		convertNoticesToExceptions="true"
+		convertWarningToExceptions="true"
+		processIsolation="false"
+		stopOnFailure="false"
+		syntaxCheck="false"
+		verbose="false">
+
+	<testsuites>
+	  <testsuite name="Angular-Login App Test Suite">
+	    <directory>test</directory>
+	  </testsuite>
+	</testsuites>
+
+	<logging>
+	    <log type="coverage-html"
+	         target="./log/report"
+	            charset="UTF-8"
+	            yui="true"
+	            highlight="true"
+	            lowUpperBound="35"
+	            highLowerBound="70"/>
+	    <log type="testdox-html" target="./log/testedox.html"/>
+	</logging>
+
+</phpunit>

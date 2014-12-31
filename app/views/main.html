@@ -1,0 +1,50 @@
+<div class="page-signin">
+
+    <div class="main-body">
+        <div class="container">
+            <div class="form-container">
+
+
+                <form class="form-horizontal" name="userForm" ng-submit="submitForm(userForm.$valid)" novalidate>
+                    <fieldset>
+
+                        <!-- USERNAME -->
+                        <div class="form-group" ng-class="{ 'has-error' : userForm.username.$invalid && !userForm.username.$pristine }">
+                            <div class="input-group input-group-lg">
+                                <span class="input-group-addon">
+                                    <span class="glyphicon glyphicon-user"></span>
+                                </span>
+                                <input placeholder="Name" type="text" name="username" class="form-control" ng-model="user.username" ng-minlength="8" ng-maxlength="24" required>
+                            </div>
+                                <p ng-show="userForm.username.$error.minlength" class="help-block">Username is too short.</p>
+                                <p ng-show="userForm.username.$error.maxlength" class="help-block">Username is too long.</p>
+                        </div>
+
+                        <!-- PASSWORD -->
+                        <div class="form-group" ng-class="{ 'has-error' : userForm.password.$invalid && !userForm.password.$pristine }">
+                            <div class="input-group input-group-lg">
+                                <span class="input-group-addon">
+                                    <span class="glyphicon glyphicon-lock"></span>
+                                </span>
+                                <input placeholder="Name" type="text" name="password" class="form-control" ng-model="user.password" ng-minlength="6" ng-maxlength="20" required>
+                            </div>
+                                <p ng-show="userForm.password.$error.minlength" class="help-block">Password is too short.</p>
+                                <p ng-show="userForm.password.$error.maxlength" class="help-block">Password is too long.</p>
+                        </div>
+
+                        <div class="form-group">
+                        <button type="submit" class="btn btn-primary btn-lg btn-block" ng-disabled="userForm.$invalid">Log In</button>
+                        </div>
+                    </fieldset>
+                </form>
+
+                <section>
+                    <p class="text-center"><a href="#/pages/forgot">Forgot your password?</a></p>
+                    <p class="text-center text-muted text-small">Don't have an account yet? <a href="#/pages/signup">Sign up</a></p>
+                </section>
+                
+            </div>
+        </div>
+    </div>
+
+</div>
