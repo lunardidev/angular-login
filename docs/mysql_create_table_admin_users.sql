@@ -7,7 +7,7 @@ CREATE TABLE adm_users (
  de_user         varchar(24)  NOT NULL     COMMENT 'username',
  de_name         varchar(30)  NOT NULL     COMMENT 'user full name',
  de_mail         varchar(45)  NOT NULL     COMMENT 'user email',
- de_pass         varchar(20)  NOT NULL     COMMENT 'user password',
+ de_pass         varchar(32)  NOT NULL     COMMENT 'user password',
  PRIMARY KEY (cd_user),
  UNIQUE KEY (de_user),
  UNIQUE KEY (de_mail)
