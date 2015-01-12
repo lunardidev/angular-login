@@ -2,7 +2,7 @@
 'use strict';
 
 // # Globbing
-// for performance reasons we're only matching one level down:
+// for performance reafsons we're only matching one level down:
 // 'test/spec/{,*/}*.js'
 // use this if you want to recursively match all subfolders:
 // 'test/spec/**/*.js'
@@ -24,11 +24,41 @@ module.exports = function (grunt) {
   // Define the configuration for all the tasks
   grunt.initConfig({
 
+    php: {
+        dist: {
+            options: {
+                keepalive: true,
+                open: true,
+                base: 'dist'
+            }
+        }
+    },
+
     // Project settings
     yeoman: appConfig,
 
+    // phpUnit
+    phpunit: {
+        classes: {
+            dir: 'test/phpunit/test/'
+        },
+        options: {
+            bin: 'test/phpunit/vendor/bin/phpunit',
+            bootstrap: 'test/phpunit/vendor/autoload.php',
+            colors: true,
+            logTap: 'test/phpunit_tests.log',
+            testdoxHtml: 'test/phpunit_tests.html'
+        }
+    },
+
     // Watches files for changes and runs tasks based on the changed files
     watch: {
+      
+      test: {
+        files:'<%= yeoman.app %>/{,*/}*.php',
+        tasks: ['phpunit']
+       },
+
       bower: {
         files: ['bower.json'],
         tasks: ['wiredep']
@@ -336,12 +366,18 @@ module.exports = function (grunt) {
           cwd: '<%= yeoman.app %>',
           dest: '<%= yeoman.dist %>',
           src: [
-            '*.{ico,png,txt}',
+            '*.{ico,png,txt,php}',
             '.htaccess',
             '*.html',
             'views/{,*/}*.html',
             'images/{,*/}*.{webp}',
-            'fonts/*'
+            'fonts/*',
+            'api/{,*/}*.php',
+            'database/{,*/}*.php',
+            'libraries/{,*/}*.php',
+            'api/{,*/}*.htaccess'
+
+
           ]
         }, {
           expand: true,
@@ -413,10 +449,12 @@ module.exports = function (grunt) {
     'concurrent:test',
     'autoprefixer',
     'connect:test',
-    'karma'
+    'karma',
+    'phpunit'
   ]);
 
   grunt.registerTask('build', [
+    'newer:jshint',
     'clean:dist',
     'wiredep',
     'useminPrepare',
@@ -434,9 +472,9 @@ module.exports = function (grunt) {
   ]);
 
   grunt.registerTask('default', [
-    //'newer:jshint',
+    'newer:jshint',
     'test',
-    //'build',
+    'build',
     'server'
   ]);
 };

@@ -1,0 +1,55 @@
+<div class="body-content">
+    <div class="page-login col-sm-12 col-xs-12" ng-controller="LoginCtrl">
+        <div class="container">
+
+           <div class="center">
+                <h1>Log In</h1>
+            </div>
+
+            <div class="form-container-login">
+
+                <!-- alert message -->
+                <div>
+                    <alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">
+                        <span class="{{alert.icone}}"></span>
+                        {{alert.msg}}
+                    </alert>
+                </div>
+
+                <form class="form-horizontal" name="userForm" ng-submit="submitFormLogin()" novalidate>
+                    <fieldset>
+
+                        <!-- USERNAME -->
+                        <div class="form-group" ng-class="{ 'has-error' : signUpForm.username.$invalid && !signUpForm.username.$pristine }">
+                            <div class="input-group input-group-lg">
+                                <span class="input-group-addon">
+                                    <span class="glyphicon glyphicon-user"></span>
+                                </span>
+                                <input ng-keyup="alerts=[]" ng-model="login.username" placeholder="User Name" type="text" name="username" class="form-control" ng-model="user.username" required>
+                            </div>
+                        </div>
+
+                        <!-- PASSWORD -->
+                        <div class="form-group" ng-class="{ 'has-error' : signUpForm.password.$invalid && !signUpForm.password.$pristine }">
+                            <div class="input-group input-group-lg">
+                                <span class="input-group-addon">
+                                    <span class="glyphicon glyphicon-lock"></span>
+                                </span>
+                                <input ng-keyup="alerts=[]" ng-model="login.password" placeholder="Password" type="password" name="password" class="form-control" ng-model="user.password" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                        <button ng-click="doLogin(login)" type="submit" class="btn btn-primary btn-lg btn-block" ng-disabled="signUpForm.$invalid || loading">{{btLogin}}</button>
+                        </div>
+                    </fieldset>
+                </form>
+
+                <section>
+                    <p class="text-center text-muted text-small">Don't have an account? <a href="#/signUp">Sign up</a></p>
+                </section>
+                
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,123 @@
+<div class="body-content">
+    <div class="page-signup col-sm-12 col-xs-12" ng-controller="SignupCtrl">
+        <div class="container">
+
+           <div class="center">
+                <h1>Sign Up</h1>
+            </div>
+
+            <div class="form-container-signup">
+
+                 <!-- alert messages -->
+                <div>
+                    <alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">
+                        <span class="{{alert.icone}}"></span>
+                        {{alert.msg}}
+                    </alert>
+                </div>
+
+                <form class="form-horizontal" name="signUpForm" ng-submit="submitFormSignUp()" novalidate>
+
+                    <!-- FULL NAME -->
+                    <div class="form-group" ng-class="{ 'has-error' : signUpForm.deName.$invalid && !signUpForm.deName.$pristine }">
+                        <label class="col-sm-4 control-label no-padding-right" for="deName">Full Name</label>
+                        <div class="col-sm-8">
+                            <span class="block input-icon input-icon-right">  
+                                <input ng-model="signUp.deName" placeholder="Full Name" type="text" name="deName" class="form-control"required ng-minlength="6" ng-maxlength="30">                        
+                            </span>
+                                <p class="error-inline" ng-show="signUpForm.deName.$dirty && signUpForm.deName.$invalid">
+                                    <span class="glyphicon glyphicon-exclamation-sign"></span>
+                                    Full Name must be informed.
+                                </p>   
+                        </div>
+                    </div>
+
+                    <!-- USERNAME -->
+                    <div class="form-group" ng-class="{ 'has-error' : (signUpForm.username.$invalid && !signUpForm.username.$pristine) || signUpForm.username.$error.usernameAlreadyRegistered}">
+                        <label class="col-sm-4 control-label no-padding-right" for="username">Username</label>
+                        <div class="col-sm-8">
+                            <span class="block input-icon input-icon-right">  
+                                <input validate-username ng-model="signUp.username" placeholder="User Name" type="text" name="username" class="form-control"required ng-minlength="8" ng-maxlength="24"> 
+                                <p class="error-inline" ng-show="signUpForm.username.$dirty && signUpForm.username.$error.usernameIsNotValid">
+                                    <span class="glyphicon glyphicon-exclamation-sign"></span>
+                                    Username must be between 8 and 24 characters. The first Character must be uppercase.
+                                </p>      
+                                <p class="error-inline" ng-show="signUpForm.username.$dirty && signUpForm.username.$error.usernameAlreadyRegistered">
+                                    <span class="glyphicon glyphicon-exclamation-sign"></span>
+                                    Username is already in use.
+                                </p> 
+                                <p class="success-inline" ng-show="signUpForm.username.$dirty && !signUpForm.username.$error.usernameAlreadyRegistered && !signUpForm.username.$invalid">
+                                    <span class="glyphicon glyphicon-ok-sign"></span>
+                                    Username ok!
+                                </p>                    
+                            </span>
+                        </div>
+                    </div>
+
+                    <!-- EMAIL -->
+                    <div class="form-group" ng-class="{ 'has-error' : (signUpForm.email.$invalid && !signUpForm.email.$pristine) || signUpForm.email.$error.emailAlreadyRegistered }">
+                        <label class="col-sm-4 control-label no-padding-right" for="email">Email</label>
+                        <div class="col-sm-8">
+                            <span class="block input-icon input-icon-right">  
+                                <input ng-model="signUp.email" placeholder="Email" type="email" name="email" class="form-control" required ng-minlength="4" ng-maxlength="45">  
+                                <p class="error-inline" ng-show="signUpForm.email.$dirty && signUpForm.email.$invalid">
+                                    <span class="glyphicon glyphicon-exclamation-sign"></span>
+                                    Email must have an at sign (@).
+                                </p>    
+                                <p class="error-inline" ng-show="signUpForm.email.$dirty && signUpForm.email.$error.emailAlreadyRegistered">
+                                    <span class="glyphicon glyphicon-exclamation-sign"></span>
+                                    E-mail address is already in use.
+                                </p> 
+                                <p class="success-inline" ng-show="signUpForm.email.$dirty && !signUpForm.email.$error.emailAlreadyRegistered && !signUpForm.email.$invalid">
+                                    <span class="glyphicon glyphicon-ok-sign"></span>
+                                    E-mail address ok!
+                                </p>                      
+                            </span>
+                        </div>
+                    </div>
+
+                    <!-- PASSWORD -->
+                    <div class="form-group" ng-class="{ 'has-error' : signUpForm.password.$invalid && !signUpForm.password.$pristine && signUpForm.password.$error.passwordIsNotValid}">
+                        <label class="col-sm-4 control-label no-padding-right" for="password">Password</label>
+                        <div class="col-sm-8">
+                            <span class="block input-icon input-icon-right">  
+                                <input validate-password ng-model="signUp.password" placeholder="Password" type="text" name="password" class="form-control" required ng-minlength="6" ng-maxlength="20">  
+                                <p class="error-inline" ng-show="signUpForm.password.$dirty && signUpForm.password.$error.passwordIsNotValid">
+                                    <span class="glyphicon glyphicon-exclamation-sign"></span>
+                                    Username must contain one digit from 0-9, lowercase and uppercase characters and one special symbols of the list "@#$%".
+                                </p>     
+                            </span>
+                        </div>
+                    </div>
+
+                    <!-- CONFIRM YOUR PASSWORD -->
+                    <div class="form-group" ng-class="{ 'has-error' : signUpForm.confirmPassword.$invalid && !signUpForm.confirmPassword.$pristine && signUpForm.confirmPassword.$error.errorCompareTo}">
+                        <label class="col-sm-4 control-label no-padding-right" for="password">Confirm Password</label>
+                        <div class="col-sm-8">
+                            <span class="block input-icon input-icon-right">  
+                                <input compare-to="signUp.password" ng-model="signUp.confirmPassword" placeholder="Confirm Password" type="text" name="confirmPassword" class="form-control" required> 
+                                <p class="error-inline" ng-show="signUpForm.confirmPassword.$dirty && signUpForm.confirmPassword.$error.errorCompareTo">
+                                    <span class="glyphicon glyphicon-exclamation-sign"></span>
+                                    Must match the previous entry.
+                                </p>  
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label no-padding-right"></label>
+                        <div class="col-sm-8">
+                            <button ng-click="dosignUp(signUp)" type="submit" class="btn btn-primary btn-lg btn-block" ng-disabled="signUpForm.$invalid || loading || signUpForm.username.$error.usernameAlreadyRegistered || signUpForm.username.$error.emailAlreadyRegistered">{{btSignUp}}</button>
+                        </div>
+                    </div>
+
+                </form>
+
+                <section>
+                    <p class="text-center">Already have an account? <a href="#/login"> Sign In</a></p>
+                </section>
+
+            </div>
+        </div>
+    </div>
+</div>

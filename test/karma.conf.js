@@ -16,6 +16,12 @@ module.exports = function(config) {
     // testing framework to use (jasmine/mocha/qunit/...)
     frameworks: ['jasmine'],
 
+    reporters: ['progress', 'html'],
+
+    htmlReporter: {
+      outputFile: 'test/karma_log.html'
+    },
+
     // list of files / patterns to load in the browser
     files: [
       'bower_components/angular/angular.js',
@@ -26,6 +32,7 @@ module.exports = function(config) {
       'bower_components/angular-route/angular-route.js',
       'bower_components/angular-sanitize/angular-sanitize.js',
       'bower_components/angular-touch/angular-touch.js',
+      'bower_components/angular-bootstrap/ui-bootstrap.js',
       'app/scripts/**/*.js',
       'test/mock/**/*.js',
       'test/spec/**/*.js'
@@ -52,7 +59,8 @@ module.exports = function(config) {
     // Which plugins to enable
     plugins: [
       'karma-phantomjs-launcher',
-      'karma-jasmine'
+      'karma-jasmine',
+      'karma-htmlfile-reporter'
     ],
 
     // Continuous Integration mode

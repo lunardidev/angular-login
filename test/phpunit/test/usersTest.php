@@ -1,6 +1,6 @@
 <?php
 
-require_once "vendor/autoload.php";
+//require_once "vendor/autoload.php";
 
 define("APP_DIR", "/Applications/XAMPP/xamppfiles/htdocs/ffarias.dev/angular-login/app");
 
@@ -19,7 +19,7 @@ class usersTest extends PHPUnit_Framework_TestCase{
 			[false, 'felipelunardi12345678901234567890'],
 			[false, '@elipeLunardi'],
 			[false, 'felipe@lunardi'],
-			[false, 'Felipe1'],
+			[false, 'Felipe_1'],
 			[true , 'Felipelunardi']
 		];
 	}

@@ -15,20 +15,163 @@ class users extends Rest implements interfaceApi{
     public $method = null;
 
     public function __construct($class,$method){
-       $this->class  = $class;
-       $this->method = $method;
+
+        parent::__construct();
+
+        $this->class  = $class;
+        $this->method = $method;
     }
 
-    public function loginApi(){
+    /**
+    * A simple response for this API (how do you prefer)
+    * @param $status  status (error, success)
+    * @param $message message/response
+    * @param $code    HTTP status codes (200, 201, 204, 404, 406)
+    * @param $data    
+    * @return true valid email, false invalid email
+    */
+    public function responseAPI($status, $message, $code, $data=array()){
+
+        $responseApi = json_encode(array("status"=>$status, "api"=>"$this->class|$this->method", "message"=>$message, "data" => $data));
+
+        if( !$this->is_test ){
+            $this->response($responseApi, $code);
+        } else{
+            return $responseApi;
+        }
+    }
+
+    /**
+    * A simple method for check if user was authenticated.  
+    * @return object from Api
+    */
+    public function authenticated(){
+
+        session_start();
+
+        $resultData = array(
+            "deUser"        => "",
+            "deMail"        => "",
+            "authenticated" => false
+        );
+
+        if ( isset($_SESSION['de_user']) && isset($_SESSION['de_mail']) && isset($_SESSION['authenticated']) ) {
+
+            $resultData = array(
+                "deName"        => $_SESSION['de_name'],
+                "deUser"        => $_SESSION['de_user'],
+                "deMail"        => $_SESSION['de_mail'],
+                "authenticated" => $_SESSION['authenticated']
+            );
+
+            return $this->responseAPI("success", "Login success!", 200, $resultData);
+        } else{
+            return $this->responseAPI("error", "", 200, $resultData);
+        }
         
+    }
+
+    /**
+    * Check if email is already registered 
+    * @return object from Api
+    */
+    public function verifyEmailIsRegistered(){
+
         if($this->get_request_method() != "POST"){
-                $this->response('',406);
+            return $this->responseAPI("error", "Not allowed.", 406);
         }
 
-        // open session
-        
-        return true;
+        $postData = json_decode(file_get_contents("php://input"),true);
+
+        $email = $postData["email"];
+
+        // email is already registered
+        if ($this->validateUserAlreadyRegistered('', $email) == true) {
+            return $this->responseAPI("error", "", 200);
+        }
+
+        return $this->responseAPI("success", " ", 200);
+
     }
+
+    /**
+    * Check if username is already registered 
+    * @return object from Api
+    */
+    public function verifyUsernameIsRegistered(){
+
+        if($this->get_request_method() != "POST"){
+            return $this->responseAPI("error", "Not allowed.", 406);
+        }
+
+        $postData = json_decode(file_get_contents("php://input"),true);
+
+        $username = $postData["username"];
+
+        // username is already registered
+        if ($this->validateUserAlreadyRegistered($username, '') == true) {
+            return $this->responseAPI("error", "", 200);
+        }
+
+        return $this->responseAPI("success", " ", 200);
+
+    }
+
+    /**
+    * Login of users to api
+    * @return object from Api
+    */
+    public function loginApi(){
+
+        if($this->get_request_method() != "POST"){
+            return $this->responseAPI("error", "Not allowed.", 406);
+        }
+
+        $postLogin = json_decode(file_get_contents("php://input"),true);
+
+        $username = $postLogin["login"]["username"];
+        $password = $postLogin["login"]["password"];
+
+        $this->login($username, $password);
+    }
+
+    /**
+    * Register a new user to api
+    * @return object from Api
+    */
+    public function signUpApi(){
+
+        if($this->get_request_method() != "POST"){
+            return $this->responseAPI("error", "Not allowed.", 406);
+        }
+
+        $postData= json_decode(file_get_contents("php://input"),true);
+
+        $deName          = $postData["signUp"]["deName"];
+        $username        = $postData["signUp"]["username"];
+        $email           = $postData["signUp"]["email"];
+        $password        = $postData["signUp"]["password"];
+
+        $this->signUp($deName, $username, $password, $email);
+    }
+
+    /**
+    * Simple method for Logout
+    */
+    public function logout(){
+
+        session_start();
+        session_destroy();
+     
+        unset ($_SESSION['de_name']);
+        unset ($_SESSION['de_user']);
+        unset ($_SESSION['de_mail']);
+        unset ($_SESSION['authenticated']);
+
+        // return
+        $this->responseAPI("success", "Logout Success!", 200);
+    }
+
 
     /**
     * Login
@@ -61,9 +204,12 @@ class users extends Rest implements interfaceApi{
         
         try {
 
-            $getLoginData = $connector->prepare("SELECT de_user, de_mail from adm_users WHERE de_user=:de_user AND de_pass=:de_pass");
+            $resultData         = null;
+            $encrypted_password = md5($password);
+
+            $getLoginData = $connector->prepare("SELECT de_user, de_mail, de_name from adm_users WHERE de_user=:de_user AND de_pass=:de_pass");
             $getLoginData->bindParam(':de_user', $username, PDO::PARAM_STR);
-            $getLoginData->bindParam(':de_pass', $password, PDO::PARAM_STR);
+            $getLoginData->bindParam(':de_pass', $encrypted_password, PDO::PARAM_STR);
             $getLoginData->execute();
 
             $resultData = $getLoginData->fetch(PDO::FETCH_ASSOC);
@@ -75,8 +221,20 @@ class users extends Rest implements interfaceApi{
         } catch (Exception $e) {
             return $this->responseAPI("error", $e->getMessage(), 200);
         }
-                    
-        return $this->responseAPI("success", "Login success!", 200);
+
+        if( isset($resultData['de_user']) && isset ($resultData['de_mail']) ){
+
+            session_start();
+     
+            $_SESSION['de_name']        = $resultData['de_name'];
+            $_SESSION['de_user']        = $resultData['de_user'];
+            $_SESSION['de_mail']        = $resultData['de_mail'];
+            $_SESSION['authenticated']  = true;
+                        
+            return $this->responseAPI("success", "Login success!", 200, $resultData);
+        } else{
+            return $this->responseAPI("error", "Login fail!", 200);
+        }
 
     }
 
@@ -118,6 +276,8 @@ class users extends Rest implements interfaceApi{
         }
 
         $connector = $PDOConnector->getConnection();
+
+        $encrypted_password = md5($password);
         
         try {
             
@@ -125,7 +285,7 @@ class users extends Rest implements interfaceApi{
 
             $insert->bindParam(1, $fullName);
             $insert->bindParam(2, $username);
-            $insert->bindParam(3, $password);
+            $insert->bindParam(3, $encrypted_password);
             $insert->bindParam(4, $email);
 
             $insert->execute();
@@ -133,8 +293,9 @@ class users extends Rest implements interfaceApi{
         } catch (Exception $e) {
             return $this->responseAPI("error", $e->getMessage(), 200);
         }
-                    
-        return $this->responseAPI("success", "New user registered with success!", 200);
+            
+        // login through of right way       
+        $this->login($username, $password);
     }
 
     /**
@@ -185,18 +346,12 @@ class users extends Rest implements interfaceApi{
     */
     public function validateUsername($username){
 
-        // Username must be between 8 and 24 characters.
-        if( strlen($username) < 8 || strlen($username) > 24 ){
-            return false;
-        }
-
-        // Checks if all of the characters in the provided username are alphanumeric [A-Z or a-z or decimal numbers].
-        if ( !ctype_alnum($username) ) {
-            return false;
-        }
-
         // The first Character of username must be uppercase.
-        if ( !ctype_upper($username{0}) ) {
+        // Username must be between 8 and 24 characters.
+        // Checks if all of the characters in the provided username are alphanumeric [A-Z or a-z or decimal numbers].
+        $usernameRules = "(^[A-Z][a-zA-Z0-9]{8,24}$)";
+
+        if(!preg_match($usernameRules, $username)) {
             return false;
         }
 
@@ -233,6 +388,7 @@ class users extends Rest implements interfaceApi{
     */
     public function validadeEmail($email){
 
+        /* @todo need be improved. */
         $emailRule = "(^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$)";
 
         if(!preg_match($emailRule, $email)) {
@@ -241,33 +397,6 @@ class users extends Rest implements interfaceApi{
 
         return true;
 
-    }
-    
-    /**
-    * Logout
-    */
-    public function logout(){
-
-        // return
-        $this->responseAPI("success", "Logout Success!", 200);
-    }
-
-    /**
-    * A simple response for this API (how do you prefer)
-    * @param $status  status (error, success)
-    * @param $message message/response
-    * @param $code    HTTP status codes (200, 201, 204, 404, 406)
-    * @return true valid email, false invalid email
-    */
-    public function responseAPI($status, $message, $code){
-
-        $responseApi = json_encode(array("status"=>$status, "api"=>"$this->class|$this->method", "message"=>$message));
-
-        if( !$this->is_test ){
-            $this->response($responseApi, $code);
-        } else{
-            return $responseApi;
-        }
     }
     
     public function __destruct(){

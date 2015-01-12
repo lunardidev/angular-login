@@ -11,7 +11,8 @@ class Rest {
 	private $_code = 200;
 	
 	public function __construct(){
-		$this->inputs();
+		if( $this->is_test == "false")
+			$this->inputs();
 	}
 	
 	public function get_referer(){
@@ -21,7 +22,7 @@ class Rest {
 	public function response($data,$status){
 		$this->_code = ($status)?$status:200;
 
-		if( !$this->is_test )
+		if( $this->is_test == "false")
 			$this->set_headers();
 
 		echo $data;

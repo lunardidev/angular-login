@@ -1,9 +1,93 @@
 $icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/bootstrap/";
+
 // bower:scss
 @import "bootstrap-sass-official/assets/stylesheets/_bootstrap.scss";
 // endbower
 
-$body-bg : #000;
-$dark    : #000;
+@import url(http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,600,700,300,800);
 
-@import "pages/signin-signup";
+$link-color 		: #228ecc;
+$link-color-hover	: #156897;
+
+$button-color 		: #228ecc;
+$button-color-hover	: #156897;
+
+@import "pages/login-signup.scss";
+@import "transitions/page-transitions.scss";
+
+body{ 
+	font-family: 'Open Sans', sans-serif;
+	overflow-y:hidden; 
+}
+
+.success-inline{
+	position:relative;
+	top:5px;
+	color: #50770c;
+}
+
+.error-inline{
+	position:relative;
+	top:5px;
+	color: #a94442;
+}
+
+.body-content {
+
+    bottom:0; 
+    position:absolute; 
+    top:0;  
+    width:100%; 
+
+	.center {
+	  text-align: center;
+	  
+	  h1{
+	    font-size: 42px;
+	    margin-top: 0;
+	    margin-bottom: 20px;
+		font-family: 'Open Sans', sans-serif;
+		color:#4e4e4e;
+	  }
+	    
+	}
+
+	a {
+		color: $link-color;
+		-webkit-transition: color 300ms, background-color 300ms;
+		-moz-transition: color 300ms, background-color 300ms;
+		-o-transition:  color 300ms, background-color 300ms;
+		transition:  color 300ms, background-color 300ms;
+	}
+
+	a:hover, a:focus {
+		color: $link-color-hover;
+	}
+
+	.btn-primary {
+		padding: 8px 20px;
+		background: $button-color;
+		color: #fff;
+		border-radius: 4px;
+		border:none;
+		margin-top: 10px;
+
+		-webkit-transition: 500ms;
+		-moz-transition: 500ms;
+		-o-transition: 500ms;
+		transition: 500ms;
+
+	}
+
+	.btn-primary:hover, 
+	.btn-primary:focus{  
+		background: none repeat scroll 0 0 $button-color-hover;
+		-webkit-transition: 500ms;
+		-moz-transition: 500ms;
+		-o-transition: 500ms;
+		transition: 500ms;
+		color: #fff;
+	  
+	}
+  
+}

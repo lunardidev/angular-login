@@ -1,0 +1,21 @@
+<div class="body-content bg-1">
+    <div class="col-sm-12 col-xs-12" ng-controller="DashboardCtrl">
+        <div class="container">
+
+           <div class="center">
+                <h1>My Dashboard</h1>
+            </div>
+
+             <!-- alert messages -->
+            <div>
+                <alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">
+                    <span class="{{alert.icone}}"></span>
+                    {{alert.msg}}
+                </alert>
+            </div>
+
+            <p ng-controller="LoginCtrl">Welcome {{deName}} ({{deMail}}) | <a id="logout" href ng-click="logout()">Logout</a></p>
+
+        </div>
+    </div>
+</div>

@@ -15,23 +15,63 @@ angular
     'ngResource',
     'ngRoute',
     'ngSanitize',
-    'ngTouch'
+    'ngTouch',
+    'ui.bootstrap'
   ])
   .config(function ($routeProvider) {
     $routeProvider
       .when('/', {
-        templateUrl: 'views/main.html',
-        controller: 'MainCtrl'
+        templateUrl: 'views/login.html',
+        controller: 'LoginCtrl'
       })
-      .when('/about', {
-        templateUrl: 'views/about.html',
-        controller: 'AboutCtrl'
+      .when('/login', {
+        templateUrl: 'views/login.html',
+        controller: 'LoginCtrl'
+      })      
+      .when('/signUp', {
+        templateUrl: 'views/signup.html',
+        controller: 'SignupCtrl'
       })
-      .when('/home', {
-        templateUrl: 'views/home.html',
-        controller: 'HomeCtrl'
+      .when('/dashboard', {
+        templateUrl: 'views/dashboard.html',
+        controller: 'DashboardCtrl'
       })
       .otherwise({
-        redirectTo: '/'
+        templateUrl: 'views/404.html'
       });
+  })
+
+.run(function ($rootScope, $timeout, $location, apiConnector) {
+    
+    $rootScope.$on('$routeChangeSuccess', function () {
+        
+        $timeout(function(){
+            $rootScope.isViewLoading = false;
+        }, 1000);
+        
+    });
+      
+    $rootScope.$on('$routeChangeStart', function (e, current) {
+      
+      $rootScope.isViewLoading = true;
+
+      apiConnector.get('api/users/authenticated').then(function (res) {
+          
+        if (res.data.authenticated === true) {
+          $rootScope.authenticated = res.data.authenticated;
+          $rootScope.deName        = res.data.deName;
+          $rootScope.deUser        = res.data.deUser;
+          $rootScope.deMail        = res.data.deMail;
+
+        } else {
+
+          // pages that don't need authentication
+          if( angular.isObject(current.$$route) ) {
+            if (current.$$route.originalPath !== '/signUp' && current.$$route.originalPath !== '/login'){
+              $location.path('/');
+            }
+          }
+        }
+    });
   });
+});
