@@ -44,8 +44,11 @@ Run Grunt with: grunt test
 
 ### Logs 
 [karma_log.html](http://dev.fetmobile.net/angular-login/tests/karma_log.html)
+
 [phpunit_tests.html](http://dev.fetmobile.net/angular-login/tests/phpunit_tests.html)
+
 [phpunit_tests.log](http://dev.fetmobile.net/angular-login/tests/phpunit_tests.log)
+
 
 Javascript: using jasmine. Dir: test/spec
 Php: using phpUnit. Dir: test. phpunit
