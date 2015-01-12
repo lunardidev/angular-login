@@ -185,7 +185,7 @@ class users extends Rest implements interfaceApi{
         if ($this->validateUsername($username) == false) {
             return $this->responseAPI("error", "Sorry, this username is invalid.", 200);
         }
-        if ($this->validadePassword($password) == false) {
+        if ($this->validatePassword($password) == false) {
             return $this->responseAPI("error", "Sorry, this password is invalid.", 200);
         }
 
@@ -253,10 +253,10 @@ class users extends Rest implements interfaceApi{
             return $this->responseAPI("error", "Sorry, this username is invalid.", 200);
         }
 
-        if ($this->validadePassword($password) == false) {
+        if ($this->validatePassword($password) == false) {
             return $this->responseAPI("error", "Sorry, this password is invalid.", 200);
         }
-        if ($this->validadeEmail($email) == false) {
+        if ($this->validateEmail($email) == false) {
             return $this->responseAPI("error", "Sorry, this email is invalid.", 200);
         }
 
@@ -364,7 +364,7 @@ class users extends Rest implements interfaceApi{
     * @param $password password for validation
     * @return true valid password, false invalid password
     */
-    public function validadePassword($password){
+    public function validatePassword($password){
 
         // must contains one digit from 0-9
         // must contains one lowercase characters
@@ -386,7 +386,7 @@ class users extends Rest implements interfaceApi{
     * @param $email email for validation
     * @return true valid email or false invalid email
     */
-    public function validadeEmail($email){
+    public function validateEmail($email){
 
         /* @todo need be improved. */
         $emailRule = "(^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$)";

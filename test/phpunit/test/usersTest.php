@@ -1,7 +1,5 @@
 <?php
 
-//require_once "vendor/autoload.php";
-
 define("APP_DIR", "/Applications/XAMPP/xamppfiles/htdocs/ffarias.dev/angular-login/app");
 
 
@@ -89,12 +87,12 @@ class usersTest extends PHPUnit_Framework_TestCase{
 
 		// validations with error
 		if( $status == false ){
-			$this->assertFalse($this->users->validadePassword($password));
+			$this->assertFalse($this->users->validatePassword($password));
 		}
 
 		// validations with success
 		if( $status == true ){
-			$this->assertTrue($this->users->validadePassword($password));
+			$this->assertTrue($this->users->validatePassword($password));
 		}
 
 	}
@@ -106,12 +104,12 @@ class usersTest extends PHPUnit_Framework_TestCase{
 
 		// validations with error
 		if( $status == false ){
-			$this->assertFalse($this->users->validadeEmail($email));
+			$this->assertFalse($this->users->validateEmail($email));
 		}
 
 		// validations with success
 		if( $status == true ){
-			$this->assertTrue($this->users->validadeEmail($email));
+			$this->assertTrue($this->users->validateEmail($email));
 		}
 
 	}
