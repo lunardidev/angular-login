@@ -7,30 +7,30 @@
  * # validatePassword
  */
 angular.module('angularLoginApp')
-  .directive('validatePassword', function () {
+    .directive('validatePassword', function() {
 
-    return {
-		scope: true,
-        require: 'ngModel',
-		link: function postLink(scope, element, attrs, ctrl) {
+        return {
+            scope: true,
+            require: 'ngModel',
+            link: function postLink(scope, element, attrs, ctrl) {
 
-			var regex = /((?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%]).{6,20})/;
+                var regex = /((?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%]).{6,20})/;
 
-			var validate = function () {
+                var validate = function() {
 
-				var stringValue = scope.$eval(attrs.ngModel);
+                    var stringValue = scope.$eval(attrs.ngModel);
 
-                if(stringValue!==null){
-                	return regex.test(stringValue);
-                }
+                    if (stringValue !== null) {
+                        return regex.test(stringValue);
+                    }
 
-			};
+                };
 
-            scope.$watch(validate, function (newValue) {
-                ctrl.$setValidity('passwordIsNotValid', newValue);
-            });
+                scope.$watch(validate, function(newValue) {
+                    ctrl.$setValidity('passwordIsNotValid', newValue);
+                });
 
-		}
-    };
+            }
+        };
 
-  });
+    });

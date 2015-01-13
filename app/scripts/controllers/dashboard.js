@@ -8,26 +8,30 @@
  * Controller of the angularLoginApp
  */
 angular.module('angularLoginApp')
-  .controller('DashboardCtrl', function ($scope) {
+    .controller('DashboardCtrl', function($scope) {
 
-    $scope.alerts  = [];
+        $scope.alerts = [];
 
-    $scope.addAlert = function(type, message){
+        $scope.addAlert = function(type, message) {
 
-      var icone = '';
+            var icone = '';
 
-      if( type === 'danger'){
-        icone = 'glyphicon glyphicon-exclamation-sign';
-      } else{
-        icone = 'glyphicon glyphicon-ok-sign';
-      }
+            if (type === 'danger') {
+                icone = 'glyphicon glyphicon-exclamation-sign';
+            } else {
+                icone = 'glyphicon glyphicon-ok-sign';
+            }
 
-      $scope.alerts = [{ 'type': type, 'msg': message, 'icone': icone }];
+            $scope.alerts = [{
+                'type': type,
+                'msg': message,
+                'icone': icone
+            }];
 
-    };
+        };
 
-    $scope.closeAlert = function() {
-      $scope.alerts.splice(0, 1);
-    };
+        $scope.closeAlert = function() {
+            $scope.alerts.splice(0, 1);
+        };
 
-  });
+    });

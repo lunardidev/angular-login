@@ -8,77 +8,86 @@
  * Controller of the angularLoginApp
  */
 angular.module('angularLoginApp')
-  .controller('LoginCtrl', function ($scope, $location, apiConnector, $timeout) {
+    .controller('LoginCtrl', function($scope, $location, apiConnector, $timeout) {
 
-  	$scope.login   = {username:null, password:null};
-  	$scope.loading = false;
-    $scope.alerts  = [];
-   	$scope.btLogin = 'Log In';
+        $scope.login = {
+            username: null,
+            password: null
+        };
+        $scope.loading = false;
+        $scope.alerts = [];
+        $scope.btLogin = 'Log In';
 
-    // Function for logout
-    $scope.logout = function(){
+        // Function for logout
+        $scope.logout = function() {
 
-      apiConnector.get('api/users/logout').then(function (res) {
-          
-        if(res.status==='error'){
-          $scope.loading = false;
-          $scope.addAlert('danger', res.message);
-        }
+            apiConnector.get('api/users/logout').then(function(res) {
 
-        if(res.status==='success'){
+                if (res.status === 'error') {
+                    $scope.loading = false;
+                    $scope.addAlert('danger', res.message);
+                }
 
-          $scope.addAlert('success', res.message);
+                if (res.status === 'success') {
 
-          $timeout(function(){
-            $location.path('/');
-          },1000);
-        }
+                    $scope.addAlert('success', res.message);
 
-      });
-    };
+                    $timeout(function() {
+                        $location.path('/');
+                    }, 1000);
+                }
 
-    // Function for login
-  	$scope.submitFormLogin = function(){
+            });
+        };
 
-		  $scope.loading = true;
-   		$scope.btLogin = 'loading...';
+        // Function for login
+        $scope.submitFormLogin = function() {
 
-      apiConnector.post('api/users/loginApi', {login: $scope.login}).then(function (res) {
-          
-        if(res.status==='error'){
-          $scope.loading = false;
-          $scope.btLogin = 'Log In';
+            $scope.loading = true;
+            $scope.btLogin = 'loading...';
 
-          $scope.addAlert('danger', res.message);
-        }
+            apiConnector.post('api/users/loginApi', {
+                login: $scope.login
+            }).then(function(res) {
 
-        if(res.status==='success'){
+                if (res.status === 'error') {
+                    $scope.loading = false;
+                    $scope.btLogin = 'Log In';
 
-          $scope.addAlert('success', res.message);
+                    $scope.addAlert('danger', res.message);
+                }
 
-          $timeout(function(){
-            $location.path('dashboard');
-          },1000);
-        }
+                if (res.status === 'success') {
 
-      });
-  	};
+                    $scope.addAlert('success', res.message);
 
-    $scope.addAlert = function(type, message){
+                    $timeout(function() {
+                        $location.path('dashboard');
+                    }, 1000);
+                }
 
-      var icone = '';
+            });
+        };
 
-      if( type === 'danger'){
-        icone = 'glyphicon glyphicon-exclamation-sign';
-      } else{
-        icone = 'glyphicon glyphicon-ok-sign';
-      }
+        $scope.addAlert = function(type, message) {
 
-      $scope.alerts = [{ 'type': type, 'msg': message, 'icone': icone }];
+            var icone = '';
 
-    };
+            if (type === 'danger') {
+                icone = 'glyphicon glyphicon-exclamation-sign';
+            } else {
+                icone = 'glyphicon glyphicon-ok-sign';
+            }
 
-    $scope.closeAlert = function() {
-      $scope.alerts.splice(0, 1);
-    };
- });
+            $scope.alerts = [{
+                'type': type,
+                'msg': message,
+                'icone': icone
+            }];
+
+        };
+
+        $scope.closeAlert = function() {
+            $scope.alerts.splice(0, 1);
+        };
+    });

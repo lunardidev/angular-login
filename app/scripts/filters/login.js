@@ -9,8 +9,8 @@
  * Filter in the angularLoginApp.
  */
 angular.module('angularLoginApp')
-  .filter('login', function () {
-    return function (input) {
-      return 'login filter: ' + input;
-    };
-  });
+    .filter('login', function() {
+        return function(input) {
+            return 'login filter: ' + input;
+        };
+    });
