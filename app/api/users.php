@@ -1,7 +1,7 @@
 <?php
 
 /**
- * This class is responsible for: Sign up, Sign up and logout for the users service.
+ * This class is responsible for sign up, sign up and logout.
  *
  * @copyright Copyright (c) 2014, Felipe Lunardi Farias <ffarias.dev@gmail.com>
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
@@ -25,12 +25,12 @@ class users extends Rest implements interfaceApi
     }
     
     /**
-     * A simple response for this API (how do you prefer)
+     * A simple response for this API
      * @param $status  status (error, success)
      * @param $message message/response
      * @param $code    HTTP status codes (200, 201, 204, 404, 406)
      * @param $data    
-     * @return true valid email, false invalid email
+     * @return object array (for test) or json (for javascript response)
      */
     public function responseAPI($status, $message, $code, $data = array())
     {
@@ -50,7 +50,7 @@ class users extends Rest implements interfaceApi
     }
     
     /**
-     * A simple method for check if user was authenticated.  
+     * Check if user was authenticated.  
      * @return object from Api
      */
     public function authenticated()
