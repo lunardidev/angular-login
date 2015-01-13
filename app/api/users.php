@@ -51,7 +51,7 @@ class users extends Rest implements interfaceApi
     
     /**
      * Check if user was authenticated.  
-     * @return object from Api
+     * @return object of $this->responseAPI()
      */
     public function authenticated()
     {
@@ -82,7 +82,7 @@ class users extends Rest implements interfaceApi
     
     /**
      * Check if email is already registered 
-     * @return object from Api
+     * @return object of $this->responseAPI()
      */
     public function verifyEmailIsRegistered()
     {
@@ -106,7 +106,7 @@ class users extends Rest implements interfaceApi
     
     /**
      * Check if username is already registered 
-     * @return object from Api
+     * @return object of $this->responseAPI()
      */
     public function verifyUsernameIsRegistered()
     {
@@ -130,7 +130,7 @@ class users extends Rest implements interfaceApi
     
     /**
      * Login of users to api
-     * @return object from Api
+     * @return object of $this->responseAPI()
      */
     public function loginApi()
     {
@@ -149,7 +149,7 @@ class users extends Rest implements interfaceApi
     
     /**
      * Register a new user to api
-     * @return object from Api
+     * @return object of $this->responseAPI()
      */
     public function signUpApi()
     {
@@ -191,7 +191,7 @@ class users extends Rest implements interfaceApi
      * Login
      * @param $username username for login
      * @param $password password for login
-     * @return true valid username, false invalid username
+     * @return object of $this->responseAPI()
      */
     public function login($username, $password)
     {
