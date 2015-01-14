@@ -5,6 +5,16 @@ User Authentication (signup, login, logout) using angularJS, php and mysql
 
 This is a simple and responsive user authentication webapp built with angularJS. It use Sass CSS which makes it easy to modify.
 
+## Requirements:
+  - Php
+  - Mysql
+  - Node.js
+  - Grunt
+  - Bower
+  - Ruby
+  - Compass
+  - Sass
+
 ## Automation with Grunt
 Grunt is a JavaScript task runner (Automation), save yourself from repetitive tasks.
 Install project dependencies with npm install.
@@ -13,12 +23,14 @@ npm install grunt --save-dev
 
 ## How to run this app?
 Run Grunt with: grunt.
+Run Grunt with PHP: grunt php
 
 You'll need to put the files on a server to run it.
 So you can upload the "dist" folder to your server to run it. Or you can build a server locally.
 Then how to build a server locally?
 
-You can build a locally server using WAMP or MAMP (if you uses PHP). Also it's pretty easy to build one with Python (if you prefer python). And here we'll build a local server with NodeJS
+You can build a locally server using WAMP or MAMP (if you uses PHP). And here we'll build a local server with NodeJS
+
 Preparation: You'll need to install Node.js (NPM comes along with it) and node-static (an NPM package)
 
 ## How to distribution this app?
