@@ -22,8 +22,8 @@ Install project dependencies with npm install.
 npm install grunt --save-dev
 
 ## How to run this app?
-Run Grunt with: grunt.
-Run Grunt with PHP: grunt php
+  - Run Grunt with: grunt.
+  - Run Grunt with PHP: grunt php
 
 You'll need to put the files on a server to run it.
 So you can upload the "dist" folder to your server to run it. Or you can build a server locally.
