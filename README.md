@@ -1,24 +1,9 @@
 # angular-login
-User Authentication (login and signup) using AngularJS and PHP
+User Authentication (signup, login, logout) using angularJS, php and mysql
 
 ## [Demo Online](http://dev.fetmobile.net/angular-login/#/)
 
-This is a simple and responsive user authentication web App built with AngularJS. It use Sass CSS which makes it easy to modify.
-
-## Introduction to the important files:
-
-- ".bowerrc": is used for config Twitter Bower
-
-- "bower.json": is the JSON file of Twitter Bower
-
-- "Gruntfile.js": is the configure file of Grunt. It is used to configure or define tasks and load Grunt plugins.
-
-- "package.json": is the JSON file of Grunt. This file is used by npm to store metadata for projects published as npm modules. 
-You will list grunt and the Grunt plugins your project needs as devDependencies in this file.
-
-- "test/phpnit/composer.json": is used for config phpUnit
-
-- "test/karma.conf.js": is used for config karma for test javascript (tasks).
+This is a simple and responsive user authentication webapp built with angularJS. It use Sass CSS which makes it easy to modify.
 
 ## Automation with Grunt
 Grunt is a JavaScript task runner (Automation), save yourself from repetitive tasks.
@@ -59,6 +44,21 @@ In order to do development with it, you'll need have the following tools install
 Node.js (NPM comes along with it)
 Yeoman (if you are using npm 1.2.10 or above, this will also automatically install Bower, Grunt) for modern workflow.
 Ruby, Sass and Compass for Sass CSS.
+
+## Introduction to the important files:
+
+- ".bowerrc": is used for config Twitter Bower
+
+- "bower.json": is the JSON file of Twitter Bower
+
+- "Gruntfile.js": is the configure file of Grunt. It is used to configure or define tasks and load Grunt plugins.
+
+- "package.json": is the JSON file of Grunt. This file is used by npm to store metadata for projects published as npm modules. 
+You will list grunt and the Grunt plugins your project needs as devDependencies in this file.
+
+- "test/phpnit/composer.json": is used for config phpUnit
+
+- "test/karma.conf.js": is used for config karma for test javascript (tasks).
 
 
 
