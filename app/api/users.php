@@ -1,7 +1,7 @@
 <?php
 
 /**
- * This class is responsible for sign up, sign up and logout.
+ * This class is responsible for sign up, sign in and logout.
  *
  * @copyright Copyright (c) 2014, Felipe Lunardi Farias <ffarias.dev@gmail.com>
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
