@@ -12,7 +12,7 @@ This is a simple and responsive user authentication webapp built with angularJS.
   - Grunt
   - Bower
   - Ruby
-  - Compass
+  - Composer
   - Sass
 
 ## Automation with Grunt
