@@ -3,7 +3,7 @@
 describe('Directive: compareto', function () {
 
   // load the directive's module
-  beforeEach(module('angularLoginApp'));
+  beforeEach(module('compareField'));
 
   var scope;
 
