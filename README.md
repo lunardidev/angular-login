@@ -1,7 +1,6 @@
 # angular-login
 User Authentication (signup, login, logout) using angularJS, php and mysql
 
-## [Demo Online](http://dev.fetmobile.net/angular-login/#/)
 
 This is a simple and responsive user authentication webapp built with angularJS. It use Sass CSS which makes it easy to modify.
 
