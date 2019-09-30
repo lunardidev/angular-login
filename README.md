@@ -1,18 +1,9 @@
-# angular-login
-User Authentication (signup, login, logout) using angularJS, php and mysql
+# angular-login 1.3
+User Authentication (signup, login, logout) using angularJS, php and mysql using generator-angular 0.9.8.
 
+Angular 1.3: https://devdocs.io/angularjs~1.3
 
-This is a simple and responsive user authentication webapp built with angularJS. It use Sass CSS which makes it easy to modify.
-
-## Requirements:
-  - Php
-  - Mysql
-  - Node.js
-  - Grunt
-  - Bower
-  - Ruby
-  - Composer
-  - Sass
+This is a simple user authentication built with angularJS 1.3. It use Sass CSS which makes it easy to modify.
 
 ## Automation with Grunt
 Grunt is a JavaScript task runner (Automation), save yourself from repetitive tasks.
@@ -39,11 +30,11 @@ Run Grunt with: grunt build
 Run Grunt with: grunt test
 
 ### Logs 
-[karma_log.html](http://dev.fetmobile.net/angular-login/tests/karma_log.html)
+[karma_log.html] (tests/karma_log.html)
 
-[phpunit_tests.html](http://dev.fetmobile.net/angular-login/tests/phpunit_tests.html)
+[phpunit_tests.html](tests/phpunit_tests.html)
 
-[phpunit_tests.log](http://dev.fetmobile.net/angular-login/tests/phpunit_tests.log)
+[phpunit_tests.log](tests/phpunit_tests.log)
 
 
 Javascript: using jasmine. Dir: test/spec
