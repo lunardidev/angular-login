@@ -29,18 +29,6 @@ Run Grunt with: grunt build
 ## How to test this app?
 Run Grunt with: grunt test
 
-### Logs 
-[karma_log.html] (tests/karma_log.html)
-
-[phpunit_tests.html](tests/phpunit_tests.html)
-
-[phpunit_tests.log](tests/phpunit_tests.log)
-
-
-Javascript: using jasmine. Dir: test/spec
-
-Php: using phpUnit. Dir: test. phpunit
-
 ## How to Use It? (Sass Version, The Default)
 In order to do development with it, you'll need have the following tools installed:
 
