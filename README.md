@@ -3,7 +3,7 @@ User Authentication (signup, login, logout) using angularJS, php and mysql using
 
 Angular 1.3: https://devdocs.io/angularjs~1.3
 
-This is a simple user authentication built with angularJS 1.3. It use Sass CSS which makes it easy to modify.
+This is a simple user authentication built with angularJS 1.3.
 
 ## Automation with Grunt
 Grunt is a JavaScript task runner (Automation), save yourself from repetitive tasks.
