@@ -1,4 +1,4 @@
-# angular-login 1.3
+# PHP - angular-login (1.3)
 User Authentication (signup, login, logout) using angularJS, php and mysql using generator-angular 0.9.8.
 
 Angular 1.3: https://devdocs.io/angularjs~1.3
